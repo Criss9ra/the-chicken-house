@@ -15,13 +15,11 @@
     .menu-item:hover { transform: translateX(4px); }
     .order-item { animation: slideIn 0.3s ease; }
     @keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-    .protein-badge { transition: all 0.2s ease; }
-    .protein-badge:hover { transform: scale(1.05); }
-    .spice-dot { transition: all 0.2s ease; }
   </style>
  </head>
  <body class="h-full font-body">
   <div id="app-wrapper" class="h-full w-full overflow-auto" style="background-color: #FFED00;">
+   
    <header class="text-center py-8 px-4 border-b-4" style="border-color: #EF2121;">
     <h1 id="restaurant-name" class="font-display text-5xl md:text-6xl font-bold tracking-wide" style="color: #EF2121;">THE CHICKEN HOUSE</h1>
     <p id="tagline" class="font-body text-sm tracking-widest uppercase mt-2 font-semibold" style="color: #1a1a1a;">Pollo asado a la perfección</p>
@@ -78,13 +76,13 @@
          </div>
         </div>
        </div>
-       <div class="menu-item p-4 rounded-xl cursor-pointer shadow-md bg-white border-2" style="border-color: #8B4513;" onclick="addToOrder('Camote', 30, 'extra')">
+       <div class="menu-item p-4 rounded-xl cursor-pointer shadow-md bg-white border-2" style="border-color: #8B4513;" onclick="addToOrder('Camote', 50, 'extra')">
         <div class="flex justify-between items-center">
          <div>
           <h3 class="font-display text-xl font-bold">CAMOTE</h3>
-          <p class="text-xs text-gray-500">La dulzura que te gusta | $30 MXN</p>
+          <p class="text-xs text-gray-500">La dulzura que tanto te gusta | $50 MXN | ≈ $2.85 USD</p>
          </div>
-         <div class="text-right font-bold" style="color: #8B4513;">$30</div>
+         <div class="text-right font-bold" style="color: #8B4513;">$50</div>
         </div>
        </div>
       </div>
@@ -114,7 +112,6 @@
   </div>
 
   <script>
-    // Configuración global de moneda
     const exchangeRate = 17.5; 
     let orderItems = [];
 
@@ -183,7 +180,7 @@
       `).join('');
       
       const totalMXN = orderItems.reduce((sum, item) => sum + (item.priceMXN * item.quantity), 0);
-      const totalUSD = totalMXN / exchangeRate; // Aquí se aplica la conversión de 17.5
+      const totalUSD = totalMXN / exchangeRate; 
       
       document.getElementById('total').textContent = `$${totalMXN.toFixed(2)}`;
       document.getElementById('total-usd').textContent = `$${totalUSD.toFixed(2)}`;
