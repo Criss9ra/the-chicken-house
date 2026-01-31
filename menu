@@ -3,9 +3,10 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>THE CHICKEN HOUSE - Menú</title>
+  <title>Bella Cucina - Menú Interactivo</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Poppins:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
   <style>
     body { box-sizing: border-box; }
     .font-display { font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; }
@@ -15,19 +16,27 @@
     .menu-item:hover { transform: translateX(4px); }
     .order-item { animation: slideIn 0.3s ease; }
     @keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    .protein-badge { transition: all 0.2s ease; }
+    .protein-badge:hover { transform: scale(1.05); }
+    .spice-dot { transition: all 0.2s ease; }
+    .dietary-tag { font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; }
   </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
  </head>
  <body class="h-full font-body">
   <div id="app-wrapper" class="h-full w-full overflow-auto" style="background-color: #FFED00;">
-   
    <header class="text-center py-8 px-4 border-b-4" style="border-color: #EF2121;">
     <h1 id="restaurant-name" class="font-display text-5xl md:text-6xl font-bold tracking-wide" style="color: #EF2121;">THE CHICKEN HOUSE</h1>
     <p id="tagline" class="font-body text-sm tracking-widest uppercase mt-2 font-semibold" style="color: #1a1a1a;">Pollo asado a la perfección</p>
+    <div class="flex justify-center gap-6 mt-4 text-xs font-medium" style="color: #1a1a1a;">
+      <span class="flex items-center gap-2"> <span class="w-3 h-3 rounded-full" style="background-color: #EF2121;"></span> Pollo Clásico </span> 
+      <span class="flex items-center gap-2"> <span class="w-3 h-3 rounded-full" style="background-color: #FF6B00;"></span> Pollo con Sabor </span> 
+      <span class="flex items-center gap-2"> <span class="w-3 h-3 rounded-full" style="background-color: #8B4513;"></span> Extras </span>
+    </div>
    </header>
-
    <div class="flex flex-col lg:flex-row">
     <main class="flex-1 p-6 lg:p-8">
-     
      <section class="mb-10">
       <div class="flex items-center gap-3 mb-6">
        <div class="category-indicator h-8" style="background-color: #EF2121;"></div>
@@ -37,26 +46,63 @@
        <div class="menu-item p-5 rounded-xl cursor-pointer shadow-md" style="background-color: #ffffff; border: 3px solid #EF2121;" onclick="addToOrder('1/2 Pollo Asado', 100, 'pollo-clasico')">
         <div class="flex justify-between items-start">
          <div class="flex-1">
-          <h3 class="font-display text-2xl font-bold">1/2 POLLO</h3>
-          <p class="text-sm mt-1 font-medium text-gray-500">Sabor tradicional</p>
+          <h3 class="font-display text-2xl font-bold" style="color: #1a1a1a;">1/2 POLLO</h3>
+          <p class="text-sm mt-1 font-medium" style="color: #666;">Medio pollo asado con nuestro sabor tradicional</p>
          </div>
          <div class="text-right ml-4">
           <div class="font-display text-2xl font-bold" style="color: #EF2121;">$100 MXN</div>
-          <div class="text-sm font-medium text-gray-500">≈ $5.71 USD</div>
+          <div class="text-sm font-medium" style="color: #666;">≈ $5.71 USD</div>
          </div>
         </div>
        </div>
-
-       <div class="menu-item p-5 rounded-xl cursor-pointer shadow-md" style="background-color: #ffffff; border: 3px solid #EF2121;" onclick="addToOrder('1 Pollo Completo', 180, 'pollo-clasico')">
+       <div class="menu-item p-5 rounded-xl cursor-pointer shadow-md" style="background-color: #ffffff; border: 3px solid #EF2121;" onclick="addToOrder('1 Pollo Asado', 180, 'pollo-clasico')">
         <div class="flex justify-between items-start">
          <div class="flex-1">
-          <h3 class="font-display text-2xl font-bold">1 POLLO COMPLETO</h3>
-          <p class="text-sm mt-1 font-medium text-gray-500">Asado a la perfección</p>
+          <h3 class="font-display text-2xl font-bold" style="color: #1a1a1a;">1 POLLO COMPLETO</h3>
+          <p class="text-sm mt-1 font-medium" style="color: #666;">Un pollo entero asado a la perfección</p>
          </div>
          <div class="text-right ml-4">
           <div class="font-display text-2xl font-bold" style="color: #EF2121;">$180 MXN</div>
-          <div class="text-sm font-medium text-gray-500">≈ $10.28 USD</div>
+          <div class="text-sm font-medium" style="color: #666;">≈ $10.29 USD</div>
          </div>
+        </div>
+       </div>
+       <div class="menu-item p-5 rounded-xl cursor-pointer shadow-md" style="background-color: #ffffff; border: 3px solid #EF2121;" onclick="addToOrder('2 Pollos Asados', 340, 'pollo-clasico')">
+        <div class="flex justify-between items-start">
+         <div class="flex-1">
+          <h3 class="font-display text-2xl font-bold" style="color: #1a1a1a;">2 POLLOS COMPLETOS</h3>
+          <p class="text-sm mt-1 font-medium" style="color: #666;">Dos pollos enteros asados - ¡Perfecto para compartir!</p>
+         </div>
+         <div class="text-right ml-4">
+          <div class="font-display text-2xl font-bold" style="color: #EF2121;">$340 MXN</div>
+          <div class="text-sm font-medium" style="color: #666;">≈ $19.43 USD</div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section>
+
+     <section class="mb-10">
+      <div class="flex items-center gap-3 mb-4">
+       <div class="category-indicator h-8" style="background-color: #FF6B00;"></div>
+       <h2 class="font-display text-3xl font-bold" style="color: #FF6B00;">POLLO CON SABOR</h2>
+      </div>
+      <p class="text-sm mb-6 pl-4 font-medium" style="color: #1a1a1a;">Elige tu sabor favorito: <span style="color: #EF2121;">BBQ • Mango Habanero 🌶️</span></p>
+      <div class="space-y-4">
+       <div class="menu-item p-5 rounded-xl shadow-md" style="background-color: #ffffff; border: 3px solid #FF6B00;">
+        <div class="flex justify-between items-start mb-3">
+         <div class="flex-1">
+          <h3 class="font-display text-2xl font-bold" style="color: #1a1a1a;">1/2 POLLO CON SABOR</h3>
+          <p class="text-sm mt-1 font-medium" style="color: #666;">Medio pollo con tu salsa favorita</p>
+         </div>
+         <div class="text-right ml-4">
+          <div class="font-display text-2xl font-bold" style="color: #FF6B00;">$110 MXN</div>
+          <div class="text-sm font-medium" style="color: #666;">≈ $6.29 USD</div>
+         </div>
+        </div>
+        <div class="flex flex-wrap gap-2">
+            <button class="protein-badge px-4 py-2 rounded-full text-sm font-bold" style="background-color: #8B4513; color: #fff;" onclick="addToOrder('1/2 Pollo BBQ', 110, 'pollo-sabor')">BBQ</button> 
+            <button class="protein-badge px-4 py-2 rounded-full text-sm font-bold flex items-center gap-1" style="background-color: #FF8C00; color: #fff;" onclick="addToOrder('1/2 Pollo Mango Habanero 🌶️', 110, 'pollo-sabor')">Mango Habanero 🌶️</button>
         </div>
        </div>
       </div>
@@ -67,44 +113,60 @@
        <div class="category-indicator h-8" style="background-color: #8B4513;"></div>
        <h2 class="font-display text-3xl font-bold" style="color: #8B4513;">EXTRAS</h2>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-       <div class="menu-item p-4 rounded-xl cursor-pointer shadow-md bg-white border-2" style="border-color: #8B4513;" onclick="addToOrder('Salchicha Asada', 15, 'extra')">
-        <div class="flex justify-between items-center">
-         <div>
-          <h3 class="font-display text-xl font-bold">SALCHICHA ASADA</h3>
-          <p class="text-xs text-gray-500">$15 MXN | ≈ $0.85 USD</p>
+      <div class="space-y-4">
+       <div class="menu-item p-5 rounded-xl cursor-pointer shadow-md" style="background-color: #ffffff; border: 3px solid #8B4513;" onclick="addToOrder('Salchicha Asada', 15, 'extra')">
+        <div class="flex justify-between items-start">
+         <div class="flex-1">
+          <h3 class="font-display text-2xl font-bold" style="color: #1a1a1a;">SALCHICHA ASADA</h3>
+          <p class="text-sm mt-1 font-medium" style="color: #666;">Jugosa salchicha asada</p>
+         </div>
+         <div class="text-right ml-4">
+          <div class="font-display text-2xl font-bold" style="color: #8B4513;">$15 MXN</div>
+          <div class="text-sm font-medium" style="color: #666;">≈ $0.86 USD</div>
          </div>
         </div>
        </div>
-       <div class="menu-item p-4 rounded-xl cursor-pointer shadow-md bg-white border-2" style="border-color: #8B4513;" onclick="addToOrder('Camote', 50, 'extra')">
-        <div class="flex justify-between items-center">
-         <div>
-          <h3 class="font-display text-xl font-bold">CAMOTE</h3>
-          <p class="text-xs text-gray-500">La dulzura que tanto te gusta | $50 MXN | ≈ $2.85 USD</p>
+       <div class="menu-item p-5 rounded-xl cursor-pointer shadow-md" style="background-color: #ffffff; border: 3px solid #8B4513;" onclick="addToOrder('Papa Asada', 15, 'extra')">
+        <div class="flex justify-between items-start">
+         <div class="flex-1"><h3 class="font-display text-2xl font-bold" style="color: #1a1a1a;">PAPA ASADA</h3></div>
+         <div class="text-right ml-4">
+          <div class="font-display text-2xl font-bold" style="color: #8B4513;">$15 MXN</div>
+          <div class="text-sm font-medium" style="color: #666;">≈ $0.86 USD</div>
          </div>
-         <div class="text-right font-bold" style="color: #8B4513;">$50</div>
+        </div>
+       </div>
+       <div class="menu-item p-5 rounded-xl cursor-pointer shadow-md" style="background-color: #ffffff; border: 3px solid #8B4513;" onclick="addToOrder('Camote', 50, 'extra')">
+        <div class="flex justify-between items-start">
+         <div class="flex-1">
+          <h3 class="font-display text-2xl font-bold" style="color: #1a1a1a;">CAMOTE</h3>
+          <p class="text-sm mt-1 font-medium" style="color: #666;">La dulzura que tanto te gusta</p>
+         </div>
+         <div class="text-right ml-4">
+          <div class="font-display text-2xl font-bold" style="color: #8B4513;">$50 MXN</div>
+          <div class="text-sm font-medium" style="color: #666;">≈ $2.86 USD</div>
+         </div>
         </div>
        </div>
       </div>
      </section>
     </main>
 
-    <aside class="lg:w-80 p-6 lg:sticky lg:top-0 lg:h-screen bg-white border-l-4" style="border-color: #EF2121;">
+    <aside class="lg:w-80 p-6 lg:sticky lg:top-0 lg:h-screen lg:overflow-auto" style="background-color: #ffffff; border-left: 4px solid #EF2121;">
      <div class="flex items-center justify-between mb-6">
       <h2 class="font-display text-3xl font-bold" style="color: #EF2121;">TU PEDIDO</h2>
-      <button onclick="clearOrder()" class="text-xs px-3 py-1 border-2 border-red-600 text-red-600 rounded-full font-bold">Limpiar</button>
+      <button onclick="clearOrder()" class="text-xs px-3 py-2 rounded-full transition-colors font-bold" style="color: #EF2121; border: 2px solid #EF2121;" onmouseover="this.style.backgroundColor='#EF2121'; this.style.color='#fff'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#EF2121'"> Limpiar </button>
      </div>
      <div id="order-items" class="space-y-3 mb-6">
-      <p id="empty-order" class="text-sm text-center py-8 text-gray-400 font-medium">Toca un plato para agregarlo</p>
+      <p id="empty-order" class="text-sm text-center py-8 font-medium" style="color: #999;">Toca un plato para agregarlo</p>
      </div>
-     <div id="order-summary" class="hidden border-t-2 pt-4 border-red-600">
+     <div id="order-summary" class="hidden border-t-2 pt-4" style="border-color: #EF2121;">
       <div class="flex justify-between items-center pt-3">
-       <span class="font-display font-bold text-lg">Total (MXN)</span>
-       <span id="total" class="font-display text-3xl font-bold text-red-600">$0</span>
+        <span class="font-display font-bold text-lg" style="color: #1a1a1a;">Total (MXN)</span> 
+        <span id="total" class="font-display text-3xl font-bold" style="color: #EF2121;">$0</span>
       </div>
       <div class="flex justify-between items-center mt-1">
-       <span class="text-xs font-medium text-gray-500">Total (USD a 17.50)</span>
-       <span id="total-usd" class="text-xl font-bold text-red-600">$0</span>
+        <span class="text-xs font-medium" style="color: #666;">Total (USD a 17.5)</span> 
+        <span id="total-usd" class="text-xl font-bold" style="color: #EF2121;">$0</span>
       </div>
      </div>
     </aside>
@@ -112,8 +174,20 @@
   </div>
 
   <script>
-    const exchangeRate = 17.5; 
+    const exchangeRate = 17.5; // TU NUEVA TASA DE CAMBIO
+    const defaultConfig = {
+      restaurant_name: 'THE CHICKEN HOUSE',
+      tagline: 'Pollo asado a la perfección',
+      background_color: '#FFED00',
+      surface_color: '#ffffff',
+      text_color: '#1a1a1a',
+      accent_color: '#EF2121',
+      secondary_text_color: '#666'
+    };
+    
+    let config = { ...defaultConfig };
     let orderItems = [];
+    let orderIdCounter = 0;
 
     function addToOrder(name, priceMXN, category) {
       const categoryColors = {
@@ -121,32 +195,24 @@
         'pollo-sabor': '#FF6B00',
         'extra': '#8B4513'
       };
+      
+      // Cálculo automático de dólares
+      const calculatedUSD = priceMXN / exchangeRate;
 
-      const existingItem = orderItems.find(item => item.name === name);
-
-      if (existingItem) {
-        existingItem.quantity += 1;
-      } else {
-        orderItems.push({
-          name: name,
-          priceMXN: priceMXN,
-          category: category,
-          color: categoryColors[category] || '#333',
-          quantity: 1
-        });
-      }
+      orderItems.push({
+        id: ++orderIdCounter,
+        name: name,
+        priceMXN: priceMXN,
+        priceUSD: calculatedUSD,
+        category: category,
+        color: categoryColors[category]
+      });
+      
       renderOrder();
     }
 
-    function removeFromOrder(name) {
-      const itemIndex = orderItems.findIndex(item => item.name === name);
-      if (itemIndex > -1) {
-        if (orderItems[itemIndex].quantity > 1) {
-          orderItems[itemIndex].quantity -= 1;
-        } else {
-          orderItems.splice(itemIndex, 1);
-        }
-      }
+    function removeFromOrder(id) {
+      orderItems = orderItems.filter(item => item.id !== id);
       renderOrder();
     }
 
@@ -160,30 +226,50 @@
       const summary = document.getElementById('order-summary');
       
       if (orderItems.length === 0) {
-        container.innerHTML = `<p class="text-sm text-center py-8 text-gray-400 font-medium">Vacío</p>`;
+        container.innerHTML = `<p id="empty-order" class="text-sm text-center py-8 font-medium" style="color: #999;">Toca un plato para agregarlo</p>`;
         summary.classList.add('hidden');
         return;
       }
       
       summary.classList.remove('hidden');
       container.innerHTML = orderItems.map(item => `
-        <div class="order-item flex items-center justify-between p-3 rounded-lg shadow-sm border-2 bg-gray-50" style="border-color: ${item.color};">
-          <div class="flex items-center gap-2">
-            <span class="font-bold text-red-600">${item.quantity}x</span>
+        <div class="order-item flex items-center justify-between p-3 rounded-lg shadow" style="background-color: #f9f9f9; border: 2px solid ${item.color};">
+          <div class="flex items-center gap-3">
+            <div class="w-2 h-10 rounded-full" style="background-color: ${item.color};"></div>
             <div>
-              <p class="text-sm font-bold">${item.name}</p>
-              <p class="text-xs text-gray-500">$${(item.priceMXN * item.quantity).toFixed(2)} MXN</p>
+              <p class="text-sm font-bold" style="color: ${config.text_color};">${item.name}</p>
+              <p class="text-xs font-medium" style="color: ${config.secondary_text_color};">$${item.priceMXN} MXN / ≈ $${item.priceUSD.toFixed(2)} USD</p>
             </div>
           </div>
-          <button onclick="removeFromOrder('${item.name}')" class="text-gray-400 hover:text-red-600 font-bold text-xl">×</button>
+          <button onclick="removeFromOrder(${item.id})" class="w-7 h-7 font-bold" style="color: #999;">×</button>
         </div>
       `).join('');
       
-      const totalMXN = orderItems.reduce((sum, item) => sum + (item.priceMXN * item.quantity), 0);
-      const totalUSD = totalMXN / exchangeRate; 
+      const totalMXN = orderItems.reduce((sum, item) => sum + item.priceMXN, 0);
+      const totalUSD = totalMXN / exchangeRate;
       
       document.getElementById('total').textContent = `$${totalMXN.toFixed(2)}`;
       document.getElementById('total-usd').textContent = `$${totalUSD.toFixed(2)}`;
+    }
+
+    // Mantener compatibilidad con Canva/Element SDK
+    async function onConfigChange(newConfig) {
+      config = { ...config, ...newConfig };
+      document.getElementById('restaurant-name').textContent = config.restaurant_name || defaultConfig.restaurant_name;
+      document.getElementById('tagline').textContent = config.tagline || defaultConfig.tagline;
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          { get: () => config.background_color || defaultConfig.background_color, set: (v) => { config.background_color = v; } },
+          { get: () => config.accent_color || defaultConfig.accent_color, set: (v) => { config.accent_color = v; } }
+        ]
+      };
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({ defaultConfig, onConfigChange, mapToCapabilities });
     }
   </script>
  </body>
