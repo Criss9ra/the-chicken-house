@@ -286,7 +286,6 @@
    </div>
   </div>
   <script>
-    // Config and order state
     const defaultConfig = {
       restaurant_name: 'THE CHICKEN HOUSE',
       tagline: 'Pollo asado a la perfección',
@@ -298,31 +297,48 @@
     };
     
     let config = { ...defaultConfig };
-    let orderItems = [];
-    let orderIdCounter = 0;
+    let orderItems = []; // Aquí guardaremos los objetos agrupados
 
-    // Order functions
     function addToOrder(name, priceMXN, priceUSD, category) {
       const categoryColors = {
         'pollo-clasico': '#EF2121',
         'pollo-sabor': '#FF6B00',
         'extra': '#8B4513'
       };
-      
-      orderItems.push({
-        id: ++orderIdCounter,
-        name: name,
-        priceMXN: priceMXN,
-        priceUSD: priceUSD,
-        category: category,
-        color: categoryColors[category]
-      });
+
+      // 1. Buscamos si el artículo ya está en el pedido
+      const existingItem = orderItems.find(item => item.name === name);
+
+      if (existingItem) {
+        // 2. Si ya existe, aumentamos la cantidad
+        existingItem.quantity += 1;
+      } else {
+        // 3. Si es nuevo, lo agregamos con cantidad 1
+        orderItems.push({
+          name: name,
+          priceMXN: priceMXN,
+          priceUSD: priceUSD,
+          category: category,
+          color: categoryColors[category],
+          quantity: 1
+        });
+      }
       
       renderOrder();
     }
 
-    function removeFromOrder(id) {
-      orderItems = orderItems.filter(item => item.id !== id);
+    function removeFromOrder(name) {
+      const itemIndex = orderItems.findIndex(item => item.name === name);
+      
+      if (itemIndex > -1) {
+        if (orderItems[itemIndex].quantity > 1) {
+          // Si hay más de uno, restamos uno
+          orderItems[itemIndex].quantity -= 1;
+        } else {
+          // Si solo hay uno, eliminamos el objeto del arreglo
+          orderItems.splice(itemIndex, 1);
+        }
+      }
       renderOrder();
     }
 
@@ -333,7 +349,6 @@
 
     function renderOrder() {
       const container = document.getElementById('order-items');
-      const emptyMessage = document.getElementById('empty-order');
       const summary = document.getElementById('order-summary');
       
       if (orderItems.length === 0) {
@@ -345,33 +360,35 @@
       summary.classList.remove('hidden');
       
       container.innerHTML = orderItems.map(item => `
-        <div class="order-item flex items-center justify-between p-3 rounded-lg shadow" style="background-color: #f9f9f9; border: 2px solid ${item.color};">
+        <div class="order-item flex items-center justify-between p-3 rounded-lg shadow mb-2" style="background-color: #f9f9f9; border: 2px solid ${item.color};">
           <div class="flex items-center gap-3">
-            <div class="w-2 h-10 rounded-full" style="background-color: ${item.color};"></div>
+            <div class="flex items-center justify-center w-8 h-8 rounded-full font-bold text-white text-xs" style="background-color: ${item.color};">
+              ${item.quantity}x
+            </div>
             <div>
               <p class="text-sm font-bold" style="color: ${config.text_color};">${item.name}</p>
-              <p class="text-xs font-medium" style="color: ${config.secondary_text_color};">$${item.priceMXN} MXN / $${item.priceUSD.toFixed(2)} USD</p>
+              <p class="text-xs font-medium" style="color: ${config.secondary_text_color};">$${(item.priceMXN * item.quantity).toFixed(2)} MXN</p>
             </div>
           </div>
-          <button onclick="removeFromOrder(${item.id})" class="w-7 h-7 rounded-full flex items-center justify-center transition-colors font-bold" style="color: #999;" onmouseover="this.style.color='#EF2121'" onmouseout="this.style.color='#999'">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-              <path d="M18 6L6 18M6 6l12 12"/>
+          <button onclick="removeFromOrder('${item.name}')" class="w-7 h-7 rounded-full flex items-center justify-center transition-colors" style="color: #999;" onmouseover="this.style.color='#EF2121'" onmouseout="this.style.color='#999'">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <path d="M18 12H6"/>
             </svg>
           </button>
         </div>
       `).join('');
       
-      const totalMXN = orderItems.reduce((sum, item) => sum + item.priceMXN, 0);
-      const totalUSD = orderItems.reduce((sum, item) => sum + item.priceUSD, 0);
+      // Cálculo de totales multiplicando por la cantidad
+      const totalMXN = orderItems.reduce((sum, item) => sum + (item.priceMXN * item.quantity), 0);
+      const totalUSD = orderItems.reduce((sum, item) => sum + (item.priceUSD * item.quantity), 0);
       
       document.getElementById('total').textContent = `$${totalMXN.toFixed(2)}`;
       document.getElementById('total-usd').textContent = `$${totalUSD.toFixed(2)}`;
     }
 
-    // Element SDK implementation
+    // Inicialización del SDK de Canva/Elementos
     async function onConfigChange(newConfig) {
       config = { ...config, ...newConfig };
-      
       document.getElementById('restaurant-name').textContent = config.restaurant_name || defaultConfig.restaurant_name;
       document.getElementById('tagline').textContent = config.tagline || defaultConfig.tagline;
     }
@@ -379,49 +396,15 @@
     function mapToCapabilities(config) {
       return {
         recolorables: [
-          {
-            get: () => config.background_color || defaultConfig.background_color,
-            set: (value) => { config.background_color = value; window.elementSdk.setConfig({ background_color: value }); }
-          },
-          {
-            get: () => config.surface_color || defaultConfig.surface_color,
-            set: (value) => { config.surface_color = value; window.elementSdk.setConfig({ surface_color: value }); }
-          },
-          {
-            get: () => config.text_color || defaultConfig.text_color,
-            set: (value) => { config.text_color = value; window.elementSdk.setConfig({ text_color: value }); }
-          },
-          {
-            get: () => config.accent_color || defaultConfig.accent_color,
-            set: (value) => { config.accent_color = value; window.elementSdk.setConfig({ accent_color: value }); }
-          },
-          {
-            get: () => config.secondary_text_color || defaultConfig.secondary_text_color,
-            set: (value) => { config.secondary_text_color = value; window.elementSdk.setConfig({ secondary_text_color: value }); }
-          }
-        ],
-        borderables: [],
-        fontEditable: undefined,
-        fontSizeable: undefined
+          { get: () => config.background_color || defaultConfig.background_color, set: (val) => { config.background_color = val; } },
+          { get: () => config.accent_color || defaultConfig.accent_color, set: (val) => { config.accent_color = val; } }
+        ]
       };
     }
 
-    function mapToEditPanelValues(config) {
-      return new Map([
-        ['restaurant_name', config.restaurant_name || defaultConfig.restaurant_name],
-        ['tagline', config.tagline || defaultConfig.tagline]
-      ]);
-    }
-
-    // Initialize
     if (window.elementSdk) {
-      window.elementSdk.init({
-        defaultConfig,
-        onConfigChange,
-        mapToCapabilities,
-        mapToEditPanelValues
-      });
+      window.elementSdk.init({ defaultConfig, onConfigChange, mapToCapabilities });
     }
-  </script>
+</script>
  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c6ab92140755638',t:'MTc2OTg3ODM4NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
