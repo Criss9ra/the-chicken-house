@@ -1,0 +1,472 @@
+
+
+<!doctype html>
+<html lang="es" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bella Cucina - Menú Interactivo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Poppins:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    .font-display { font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; }
+    .font-body { font-family: 'Poppins', sans-serif; }
+    
+    .category-indicator {
+      width: 4px;
+      border-radius: 2px;
+    }
+    
+    .menu-item {
+      transition: all 0.3s ease;
+    }
+    
+    .menu-item:hover {
+      transform: translateX(4px);
+    }
+    
+    .order-item {
+      animation: slideIn 0.3s ease;
+    }
+    
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .protein-badge {
+      transition: all 0.2s ease;
+    }
+    
+    .protein-badge:hover {
+      transform: scale(1.05);
+    }
+    
+    .spice-dot {
+      transition: all 0.2s ease;
+    }
+    
+    .dietary-tag {
+      font-size: 0.65rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <style>@view-transition { navigation: auto; }</style>
+ </head>
+ <body class="h-full font-body">
+  <div id="app-wrapper" class="h-full w-full overflow-auto" style="background-color: #FFED00;">
+   <!-- Header -->
+   <header class="text-center py-8 px-4 border-b-4" style="border-color: #EF2121;">
+    <h1 id="restaurant-name" class="font-display text-5xl md:text-6xl font-bold tracking-wide" style="color: #EF2121;">THE CHICKEN HOUSE</h1>
+    <p id="tagline" class="font-body text-sm tracking-widest uppercase mt-2 font-semibold" style="color: #1a1a1a;">Pollo asado a la perfección</p>
+    <div class="flex justify-center gap-6 mt-4 text-xs font-medium" style="color: #1a1a1a;">
+     <span class="flex items-center gap-2"> <span class="w-3 h-3 rounded-full" style="background-color: #EF2121;"></span> Pollo Clásico </span> <span class="flex items-center gap-2"> <span class="w-3 h-3 rounded-full" style="background-color: #FF6B00;"></span> Pollo con Sabor </span> <span class="flex items-center gap-2"> <span class="w-3 h-3 rounded-full" style="background-color: #8B4513;"></span> Extras </span>
+    </div>
+   </header>
+   <div class="flex flex-col lg:flex-row">
+    <!-- Menu Section -->
+    <main class="flex-1 p-6 lg:p-8">
+     <!-- Pollo Clásico -->
+     <section class="mb-10">
+      <div class="flex items-center gap-3 mb-6">
+       <div class="category-indicator h-8" style="background-color: #EF2121;"></div>
+       <h2 class="font-display text-3xl font-bold" style="color: #EF2121;">POLLO ASADO CLÁSICO</h2>
+      </div>
+      <div class="space-y-4">
+       <!-- 1/2 Pollo -->
+       <div class="menu-item p-5 rounded-xl cursor-pointer shadow-md" style="background-color: #ffffff; border: 3px solid #EF2121;" onclick="addToOrder('1/2 Pollo Asado', 100, 5.71, 'pollo-clasico')">
+        <div class="flex justify-between items-start">
+         <div class="flex-1">
+          <h3 class="font-display text-2xl font-bold" style="color: #1a1a1a;">1/2 POLLO</h3>
+          <p class="text-sm mt-1 font-medium" style="color: #666;">Medio pollo asado con nuestro sabor tradicional</p>
+         </div>
+         <div class="text-right ml-4">
+          <div class="font-display text-2xl font-bold" style="color: #EF2121;">
+           $100 MXN
+          </div>
+          <div class="text-sm font-medium" style="color: #666;">
+           ≈ $5.71 USD
+          </div>
+         </div>
+        </div>
+       </div><!-- 1 Pollo -->
+       <div class="menu-item p-5 rounded-xl cursor-pointer shadow-md" style="background-color: #ffffff; border: 3px solid #EF2121;" onclick="addToOrder('1 Pollo Asado', 180, 10.29, 'pollo-clasico')">
+        <div class="flex justify-between items-start">
+         <div class="flex-1">
+          <h3 class="font-display text-2xl font-bold" style="color: #1a1a1a;">1 POLLO COMPLETO</h3>
+          <p class="text-sm mt-1 font-medium" style="color: #666;">Un pollo entero asado a la perfección</p>
+         </div>
+         <div class="text-right ml-4">
+          <div class="font-display text-2xl font-bold" style="color: #EF2121;">
+           $180 MXN
+          </div>
+          <div class="text-sm font-medium" style="color: #666;">
+           ≈ $10.29 USD
+          </div>
+         </div>
+        </div>
+       </div><!-- 2 Pollos -->
+       <div class="menu-item p-5 rounded-xl cursor-pointer shadow-md" style="background-color: #ffffff; border: 3px solid #EF2121;" onclick="addToOrder('2 Pollos Asados', 340, 19.43, 'pollo-clasico')">
+        <div class="flex justify-between items-start">
+         <div class="flex-1">
+          <h3 class="font-display text-2xl font-bold" style="color: #1a1a1a;">2 POLLOS COMPLETOS</h3>
+          <p class="text-sm mt-1 font-medium" style="color: #666;">Dos pollos enteros asados - ¡Perfecto para compartir!</p>
+         </div>
+         <div class="text-right ml-4">
+          <div class="font-display text-2xl font-bold" style="color: #EF2121;">
+           $340 MXN
+          </div>
+          <div class="text-sm font-medium" style="color: #666;">
+           ≈ $19.43 USD
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section><!-- Pollo con Sabor -->
+     <section class="mb-10">
+      <div class="flex items-center gap-3 mb-4">
+       <div class="category-indicator h-8" style="background-color: #FF6B00;"></div>
+       <h2 class="font-display text-3xl font-bold" style="color: #FF6B00;">POLLO CON SABOR</h2>
+      </div>
+      <p class="text-sm mb-6 pl-4 font-medium" style="color: #1a1a1a;">Elige tu sabor favorito: <span style="color: #EF2121;">BBQ • Mango Habanero 🌶️</span></p>
+      <div class="space-y-4">
+       <!-- BBQ 1/2 Pollo -->
+       <div class="menu-item p-5 rounded-xl shadow-md" style="background-color: #ffffff; border: 3px solid #FF6B00;">
+        <div class="flex justify-between items-start mb-3">
+         <div class="flex-1">
+          <h3 class="font-display text-2xl font-bold" style="color: #1a1a1a;">1/2 POLLO CON SABOR</h3>
+          <p class="text-sm mt-1 font-medium" style="color: #666;">Medio pollo con tu salsa favorita</p>
+         </div>
+         <div class="text-right ml-4">
+          <div class="font-display text-2xl font-bold" style="color: #FF6B00;">
+           $110 MXN
+          </div>
+          <div class="text-sm font-medium" style="color: #666;">
+           ≈ $6.29 USD
+          </div>
+         </div>
+        </div>
+        <div class="flex flex-wrap gap-2">
+         <button class="protein-badge px-4 py-2 rounded-full text-sm font-bold" style="background-color: #8B4513; color: #fff;" onclick="addToOrder('1/2 Pollo BBQ', 110, 6.29, 'pollo-sabor')">BBQ</button> <button class="protein-badge px-4 py-2 rounded-full text-sm font-bold flex items-center gap-1" style="background-color: #FF8C00; color: #fff;" onclick="addToOrder('1/2 Pollo Mango Habanero', 110, 6.29, 'pollo-sabor')">Mango Habanero 🌶️</button>
+        </div>
+       </div><!-- BBQ 1 Pollo -->
+       <div class="menu-item p-5 rounded-xl shadow-md" style="background-color: #ffffff; border: 3px solid #FF6B00;">
+        <div class="flex justify-between items-start mb-3">
+         <div class="flex-1">
+          <h3 class="font-display text-2xl font-bold" style="color: #1a1a1a;">1 POLLO COMPLETO CON SABOR</h3>
+          <p class="text-sm mt-1 font-medium" style="color: #666;">Un pollo entero con tu salsa favorita</p>
+         </div>
+         <div class="text-right ml-4">
+          <div class="font-display text-2xl font-bold" style="color: #FF6B00;">
+           $200 MXN
+          </div>
+          <div class="text-sm font-medium" style="color: #666;">
+           ≈ $11.43 USD
+          </div>
+         </div>
+        </div>
+        <div class="flex flex-wrap gap-2">
+         <button class="protein-badge px-4 py-2 rounded-full text-sm font-bold" style="background-color: #8B4513; color: #fff;" onclick="addToOrder('1 Pollo BBQ', 200, 11.43, 'pollo-sabor')">BBQ</button> <button class="protein-badge px-4 py-2 rounded-full text-sm font-bold flex items-center gap-1" style="background-color: #FF8C00; color: #fff;" onclick="addToOrder('1 Pollo Mango Habanero', 200, 11.43, 'pollo-sabor')">Mango Habanero 🌶️</button>
+        </div>
+       </div><!-- BBQ 2 Pollos -->
+       <div class="menu-item p-5 rounded-xl shadow-md" style="background-color: #ffffff; border: 3px solid #FF6B00;">
+        <div class="flex justify-between items-start mb-3">
+         <div class="flex-1">
+          <h3 class="font-display text-2xl font-bold" style="color: #1a1a1a;">2 POLLOS COMPLETOS CON SABOR</h3>
+          <p class="text-sm mt-1 font-medium" style="color: #666;">Dos pollos enteros con tu salsa favorita</p>
+         </div>
+         <div class="text-right ml-4">
+          <div class="font-display text-2xl font-bold" style="color: #FF6B00;">
+           $380 MXN
+          </div>
+          <div class="text-sm font-medium" style="color: #666;">
+           ≈ $21.71 USD
+          </div>
+         </div>
+        </div>
+        <div class="flex flex-wrap gap-2">
+         <button class="protein-badge px-4 py-2 rounded-full text-sm font-bold" style="background-color: #8B4513; color: #fff;" onclick="addToOrder('2 Pollos BBQ', 380, 21.71, 'pollo-sabor')">BBQ</button> <button class="protein-badge px-4 py-2 rounded-full text-sm font-bold flex items-center gap-1" style="background-color: #FF8C00; color: #fff;" onclick="addToOrder('2 Pollos Mango Habanero', 380, 21.71, 'pollo-sabor')">Mango Habanero 🌶️</button>
+        </div>
+       </div>
+      </div>
+     </section><!-- Extras -->
+     <section class="mb-10">
+      <div class="flex items-center gap-3 mb-6">
+       <div class="category-indicator h-8" style="background-color: #8B4513;"></div>
+       <h2 class="font-display text-3xl font-bold" style="color: #8B4513;">EXTRAS</h2>
+      </div>
+      <div class="space-y-4">
+       <!-- Salchicha -->
+       <div class="menu-item p-5 rounded-xl cursor-pointer shadow-md" style="background-color: #ffffff; border: 3px solid #8B4513;" onclick="addToOrder('Salchicha Asada', 15, 0.86, 'extra')">
+        <div class="flex justify-between items-start">
+         <div class="flex-1">
+          <h3 class="font-display text-2xl font-bold" style="color: #1a1a1a;">SALCHICHA ASADA</h3>
+          <p class="text-sm mt-1 font-medium" style="color: #666;">Jugosa salchicha asada a las brasas</p>
+         </div>
+         <div class="text-right ml-4">
+          <div class="font-display text-2xl font-bold" style="color: #8B4513;">
+           $15 MXN
+          </div>
+          <div class="text-sm font-medium" style="color: #666;">
+           ≈ $0.86 USD
+          </div>
+         </div>
+        </div>
+       </div><!-- Papa -->
+       <div class="menu-item p-5 rounded-xl cursor-pointer shadow-md" style="background-color: #ffffff; border: 3px solid #8B4513;" onclick="addToOrder('Papa Asada', 15, 0.86, 'extra')">
+        <div class="flex justify-between items-start">
+         <div class="flex-1">
+          <h3 class="font-display text-2xl font-bold" style="color: #1a1a1a;">PAPA ASADA</h3>
+          <p class="text-sm mt-1 font-medium" style="color: #666;">Papa asada cocida como te gusta</p>
+         </div>
+         <div class="text-right ml-4">
+          <div class="font-display text-2xl font-bold" style="color: #8B4513;">
+           $15 MXN
+          </div>
+          <div class="text-sm font-medium" style="color: #666;">
+           ≈ $0.86 USD
+          </div>
+         </div>
+        </div>
+       </div><!-- Arroz -->
+       <div class="menu-item p-5 rounded-xl cursor-pointer shadow-md" style="background-color: #ffffff; border: 3px solid #8B4513;" onclick="addToOrder('Arroz', 25, 1.43, 'extra')">
+        <div class="flex justify-between items-start">
+         <div class="flex-1">
+          <h3 class="font-display text-2xl font-bold" style="color: #1a1a1a;">ARROZ</h3>
+          <p class="text-sm mt-1 font-medium" style="color: #666;">Arroz blanco o mexicano</p>
+         </div>
+         <div class="text-right ml-4">
+          <div class="font-display text-2xl font-bold" style="color: #8B4513;">
+           $25 MXN
+          </div>
+          <div class="text-sm font-medium" style="color: #666;">
+           ≈ $1.43 USD
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section><!-- Leyenda -->
+     <div class="mt-8 p-5 rounded-xl shadow-md" style="background-color: #ffffff; border: 2px solid #1a1a1a;">
+      <p class="text-sm font-bold mb-2" style="color: #1a1a1a;">🌶️ NIVEL DE PICANTE:</p>
+      <div class="flex items-center gap-2 text-sm" style="color: #666;">
+       <span class="font-medium">Mango Habanero:</span> <span class="spice-dot w-3 h-3 rounded-full" style="background-color: #FF8C00;"></span> <span class="spice-dot w-3 h-3 rounded-full" style="background-color: #ddd;"></span> <span class="spice-dot w-3 h-3 rounded-full" style="background-color: #ddd;"></span> <span class="font-medium ml-2">(Pica poco)</span>
+      </div>
+     </div>
+    </main><!-- Order Panel -->
+    <aside class="lg:w-80 p-6 lg:sticky lg:top-0 lg:h-screen lg:overflow-auto" style="background-color: #ffffff; border-left: 4px solid #EF2121;">
+     <div class="flex items-center justify-between mb-6">
+      <h2 class="font-display text-3xl font-bold" style="color: #EF2121;">TU PEDIDO</h2><button onclick="clearOrder()" class="text-xs px-3 py-2 rounded-full transition-colors font-bold" style="color: #EF2121; border: 2px solid #EF2121;" onmouseover="this.style.backgroundColor='#EF2121'; this.style.color='#fff'" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#EF2121'"> Limpiar </button>
+     </div>
+     <div id="order-items" class="space-y-3 mb-6">
+      <p id="empty-order" class="text-sm text-center py-8 font-medium" style="color: #999;">Toca un plato para agregarlo</p>
+     </div>
+     <div id="order-summary" class="hidden border-t-2 pt-4" style="border-color: #EF2121;">
+      <div class="flex justify-between items-center pt-3">
+       <span class="font-display font-bold text-lg" style="color: #1a1a1a;">Total (MXN)</span> <span id="total" class="font-display text-3xl font-bold" style="color: #EF2121;">$0</span>
+      </div>
+      <div class="flex justify-between items-center mt-1">
+       <span class="text-xs font-medium" style="color: #666;">Total (USD)</span> <span id="total-usd" class="text-xl font-bold" style="color: #EF2121;">$0</span>
+      </div><button onclick="sendToWhatsApp()" class="w-full mt-6 py-3 rounded-lg font-bold text-white transition-all hover:scale-105" style="background-color: #25D366;"> 📱 Pedir por WhatsApp </button>
+     </div>
+    </aside>
+   </div>
+  </div>
+  <script>
+    // Config and order state
+    const defaultConfig = {
+      restaurant_name: 'THE CHICKEN HOUSE',
+      tagline: 'Pollo asado a la perfección',
+      background_color: '#FFED00',
+      surface_color: '#ffffff',
+      text_color: '#1a1a1a',
+      accent_color: '#EF2121',
+      secondary_text_color: '#666'
+    };
+    
+    let config = { ...defaultConfig };
+    let orderItems = [];
+    let orderIdCounter = 0;
+
+    // Order functions
+    function addToOrder(name, priceMXN, priceUSD, category) {
+      const categoryColors = {
+        'pollo-clasico': '#EF2121',
+        'pollo-sabor': '#FF6B00',
+        'extra': '#8B4513'
+      };
+      
+      // Verificar si el item ya existe
+      const existingItem = orderItems.find(item => item.name === name);
+      
+      if (existingItem) {
+        existingItem.quantity = (existingItem.quantity || 1) + 1;
+      } else {
+        orderItems.push({
+          id: ++orderIdCounter,
+          name: name,
+          priceMXN: priceMXN,
+          priceUSD: priceUSD,
+          category: category,
+          color: categoryColors[category],
+          quantity: 1
+        });
+      }
+      
+      renderOrder();
+    }
+
+    function removeFromOrder(id) {
+      const item = orderItems.find(item => item.id === id);
+      if (item && item.quantity > 1) {
+        item.quantity--;
+      } else {
+        orderItems = orderItems.filter(item => item.id !== id);
+      }
+      renderOrder();
+    }
+
+    function clearOrder() {
+      orderItems = [];
+      renderOrder();
+    }
+
+    function sendToWhatsApp() {
+      if (orderItems.length === 0) {
+        alert('Por favor agrega items a tu pedido');
+        return;
+      }
+
+      let mensaje = 'Buenas tardes,%0AQuiero ordenar:%0A';
+      
+      orderItems.forEach(item => {
+        const qty = item.quantity;
+        const name = item.name;
+        
+        // Singulares y plurales para extras
+        if (name === 'Salchicha Asada') {
+          mensaje += qty === 1 ? '- una salchicha%0A' : `- ${qty} salchichas%0A`;
+        } else if (name === 'Papa Asada') {
+          mensaje += qty === 1 ? '- una papa%0A' : `- ${qty} papas%0A`;
+        } else if (name === 'Arroz') {
+          mensaje += qty === 1 ? '- un arroz%0A' : `- ${qty} arroces%0A`;
+        } else {
+          // Para pollos
+          mensaje += qty === 1 ? `- Un paquete de ${name}%0A` : `- ${qty} paquetes de ${name}%0A`;
+        }
+      });
+
+      mensaje += 'Gracias';
+
+      const whatsappUrl = `https://wa.me/526566423548?text=${mensaje}`;
+      window.open(whatsappUrl, '_blank');
+    }
+
+    function renderOrder() {
+      const container = document.getElementById('order-items');
+      const emptyMessage = document.getElementById('empty-order');
+      const summary = document.getElementById('order-summary');
+      
+      if (orderItems.length === 0) {
+        container.innerHTML = `<p id="empty-order" class="text-sm text-center py-8 font-medium" style="color: #999;">Toca un plato para agregarlo</p>`;
+        summary.classList.add('hidden');
+        return;
+      }
+      
+      summary.classList.remove('hidden');
+      
+      container.innerHTML = orderItems.map(item => `
+        <div class="order-item flex items-center justify-between p-3 rounded-lg shadow" style="background-color: #f9f9f9; border: 2px solid ${item.color};">
+          <div class="flex items-center gap-3 flex-1">
+            <div class="w-2 h-10 rounded-full" style="background-color: ${item.color};"></div>
+            <div class="flex-1">
+              <p class="text-sm font-bold" style="color: ${config.text_color};">${item.name}</p>
+              <p class="text-xs font-medium" style="color: ${config.secondary_text_color};">$${item.priceMXN} MXN / $${item.priceUSD.toFixed(2)} USD</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="removeFromOrder(${item.id})" class="w-6 h-6 rounded-full flex items-center justify-center transition-colors font-bold text-sm" style="background-color: #f0f0f0; color: #999;" onmouseover="this.style.backgroundColor='#EF2121'; this.style.color='#fff'" onmouseout="this.style.backgroundColor='#f0f0f0'; this.style.color='#999'">−</button>
+            <span class="w-6 text-center font-bold text-sm" style="color: ${config.text_color};">${item.quantity}</span>
+            <button onclick="addToOrder('${item.name.replace(/'/g, "\\'")}', ${item.priceMXN}, ${item.priceUSD}, '${item.category}')" class="w-6 h-6 rounded-full flex items-center justify-center transition-colors font-bold text-sm" style="background-color: #f0f0f0; color: #999;" onmouseover="this.style.backgroundColor='#EF2121'; this.style.color='#fff'" onmouseout="this.style.backgroundColor='#f0f0f0'; this.style.color='#999'">+</button>
+          </div>
+        </div>
+      `).join('');
+      
+      const totalMXN = orderItems.reduce((sum, item) => sum + (item.priceMXN * item.quantity), 0);
+      const totalUSD = orderItems.reduce((sum, item) => sum + (item.priceUSD * item.quantity), 0);
+      
+      document.getElementById('total').textContent = `$${totalMXN.toFixed(2)}`;
+      document.getElementById('total-usd').textContent = `$${totalUSD.toFixed(2)}`;
+    }
+
+    // Element SDK implementation
+    async function onConfigChange(newConfig) {
+      config = { ...config, ...newConfig };
+      
+      document.getElementById('restaurant-name').textContent = config.restaurant_name || defaultConfig.restaurant_name;
+      document.getElementById('tagline').textContent = config.tagline || defaultConfig.tagline;
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.background_color || defaultConfig.background_color,
+            set: (value) => { config.background_color = value; window.elementSdk.setConfig({ background_color: value }); }
+          },
+          {
+            get: () => config.surface_color || defaultConfig.surface_color,
+            set: (value) => { config.surface_color = value; window.elementSdk.setConfig({ surface_color: value }); }
+          },
+          {
+            get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => { config.text_color = value; window.elementSdk.setConfig({ text_color: value }); }
+          },
+          {
+            get: () => config.accent_color || defaultConfig.accent_color,
+            set: (value) => { config.accent_color = value; window.elementSdk.setConfig({ accent_color: value }); }
+          },
+          {
+            get: () => config.secondary_text_color || defaultConfig.secondary_text_color,
+            set: (value) => { config.secondary_text_color = value; window.elementSdk.setConfig({ secondary_text_color: value }); }
+          }
+        ],
+        borderables: [],
+        fontEditable: undefined,
+        fontSizeable: undefined
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ['restaurant_name', config.restaurant_name || defaultConfig.restaurant_name],
+        ['tagline', config.tagline || defaultConfig.tagline]
+      ]);
+    }
+
+    // Initialize
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d136406e6fad875',t:'MTc3MTY0Njk5Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
